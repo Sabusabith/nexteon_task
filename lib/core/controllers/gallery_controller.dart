@@ -1,17 +1,19 @@
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
-import '../models/gallery_model.dart'; 
+import 'package:kinfra_test/core/service/apiservice.dart';
+import '../models/gallery_model.dart';
 
 class GalleryController extends GetxController {
   var isLoading = false.obs;
-  var galleryData = <GalleryItem>[].obs; 
+  var galleryData = <GalleryItem>[].obs;
   var errorMessage = ''.obs;
 
   final Dio _dio = Dio();
 
   Future<void> fetchGalleryList() async {
-    final url = 'https://ajcjewel.com:4000/api/global-gallery/list';
-    final token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcklkXyI6IjYzMDI2ZjIxNWE5ZDVjNDY1NzQ3MTMxYSIsIl9lbXBsb3llZUlkXyI6IjYzMDI2ZjIxYTI1MTZhMTU0YTUxY2YxOSIsIl91c2VyUm9sZV8iOiJzdXBlcl9hZG1pbiIsImlhdCI6MTcyNjkxMjA1OCwiZXhwIjoxNzU4NDQ4MDU4fQ.2DIEnBnB0Xgc1USz5zmCMRoq0V55Wap_haKYxUs9hwA'; 
+    const url = '${ApiConfigs.baseUrl+ApiConfigs.globalGalleryList}';
+    const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcklkXyI6IjYzMDI2ZjIxNWE5ZDVjNDY1NzQ3MTMxYSIsIl9lbXBsb3llZUlkXyI6IjYzMDI2ZjIxYTI1MTZhMTU0YTUxY2YxOSIsIl91c2VyUm9sZV8iOiJzdXBlcl9hZG1pbiIsImlhdCI6MTcyNjkxMjA1OCwiZXhwIjoxNzU4NDQ4MDU4fQ.2DIEnBnB0Xgc1USz5zmCMRoq0V55Wap_haKYxUs9hwA';
 
     isLoading.value = true;
 
@@ -38,11 +40,12 @@ class GalleryController extends GetxController {
         },
       );
 
-      GlobalGalleryResponse galleryResponse = GlobalGalleryResponse.fromJson(response.data);
-      galleryData.value = galleryResponse.data.list; 
+      GlobalGalleryResponse galleryResponse =
+          GlobalGalleryResponse.fromJson(response.data);
+      galleryData.value = galleryResponse.data.list;
       print("Fetched data: ${galleryData.map((item) => item.name).toList()}");
     } on DioError catch (e) {
-      errorMessage.value = 'An error occurred. Please try again later.';
+      errorMessage.value = e.toString();
     } finally {
       isLoading.value = false;
     }

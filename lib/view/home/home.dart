@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.deepPurple.shade300,
-        title: Text("Gallery Table",style: TextStyle(color: Colors.white),),
+        title: const Text("Gallery Table",style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
       body: Center(
@@ -33,13 +33,13 @@ class HomePage extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("No data available"),
-                  SizedBox(height: 20), 
+                  const Text("No data available"),
+                  const SizedBox(height: 20), 
                   ElevatedButton(style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.deepPurple.shade300)),
                     onPressed: () {
                       galleryController.fetchGalleryList();
                     },
-                    child: Text("Show Gallery",style: TextStyle(color: Colors.white),),
+                    child: const Text("Show Gallery",style: TextStyle(color: Colors.white),),
                   ),
                 ],
               );
