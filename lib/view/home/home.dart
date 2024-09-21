@@ -12,18 +12,18 @@ class HomePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Gallery Table"),
+      appBar: AppBar(backgroundColor: Colors.deepPurple.shade300,
+        title: Text("Gallery Table",style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
       body: Center(
         child: Obx(() {
           if (galleryController.isLoading.value) {
-            return CircularProgressIndicator(color: Colors.black);
+            return CircularProgressIndicator(color: Colors.deepPurple.shade300);
           } else if (galleryController.errorMessage.isNotEmpty) {
             return Text(galleryController.errorMessage.value);
           } else {
-            // Show DataTable or the button based on data availability
+           
             if (galleryController.galleryData.isNotEmpty) {
               return Container(
                 width: size.width,
@@ -34,12 +34,12 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("No data available"),
-                  SizedBox(height: 20), // Space before the button
-                  ElevatedButton(
+                  SizedBox(height: 20), 
+                  ElevatedButton(style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.deepPurple.shade300)),
                     onPressed: () {
-                      galleryController.fetchGalleryList(); // Fetch data when pressed
+                      galleryController.fetchGalleryList();
                     },
-                    child: Text("Show Gallery"),
+                    child: Text("Show Gallery",style: TextStyle(color: Colors.white),),
                   ),
                 ],
               );
